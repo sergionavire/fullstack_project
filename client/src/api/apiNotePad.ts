@@ -1,5 +1,5 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const apiNotePad = axios.create({
-    baseURL: 'https://webservices.jumpingcrab.com',
-})
+  baseURL: "http://localhost:8080",
+});

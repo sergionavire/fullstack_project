@@ -4,8 +4,12 @@ import { apiNotePad } from "../api/apiNotePad";
 import { useEffect, useState } from "react";
 
 async function getNotePadList() {
+  console.log("aqui 03");
+
   const res = await apiNotePad.get("/notepads");
+  console.log("aqui 04");
   const data = await res.data;
+  console.log("aqui 05");
   return data;
 }
 
@@ -16,7 +20,11 @@ export function Home() {
   const [notepadList, setNotepadList] = useState(valorInicial);
   useEffect(() => {
     setLoading(true);
+    console.log("aqui 02");
+
     getNotePadList().then((notepads) => {
+      console.log("aqui");
+
       setNotepadList(notepads);
       setLoading(false);
     });

@@ -29,6 +29,7 @@ export function NotePadView() {
     apiNotePad.get(`/notepads/${params.id}`).then((res) => {
       const notepad = res.data;
       setNotePad(notepad);
+      console.log(notepad);
     });
   }, []);
 

@@ -1,9 +1,0 @@
-{
-  "ignore": [
-    ".git",
-    "node_modules/**/node_modules",
-    "nodemon_ignore",
-    "pessoas",
-    "teste.json"
-  ]
-}
