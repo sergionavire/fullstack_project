@@ -1,30 +1,30 @@
 const fs = require("fs");
 const path = require("path");
 
-function listDir(...pathDir) {
+export function listDir(...pathDir: string[]) {
   const files = fs.readdirSync(fullPath(...pathDir));
   return files;
 }
 
-function readJSON(...pathFile) {
+export function readJSON(...pathFile: string[]) {
   const JSONString = fs.readFileSync(fullPath(...pathFile)).toString();
   return JSON.parse(JSONString);
 }
 
-function writeJSON(newObject, ...pathFile) {
+export function writeJSON(newObject: any, ...pathFile: string[]) {
   const fullPathString = fullPath(...pathFile);
   if (isJSON(fullPathString) === false) {
     console.log("O arquivo não é JSON.");
     return;
   }
-  fs.writeFileSync(fullPathString, JSON.stringify(newObject), null, 4);
+  fs.writeFileSync(fullPathString, JSON.stringify(newObject), null, 2);
   return;
 }
 
-function deleteJSON(...pathFile) {
+export function deleteJSON(...pathFile: string[]) {
   const fullPathString = fullPath(...pathFile);
   if (isJSON(fullPathString) === true) {
-    fs.unlink(fullPathString, (err) => {
+    fs.unlink(fullPathString, (err: string) => {
       if (err) {
         return err;
       } else {
@@ -36,13 +36,13 @@ function deleteJSON(...pathFile) {
   }
 }
 
-function patchJSON(updateObject, ...pathFile) {
+export function patchJSON(updateObject: any, ...pathFile: string[]) {
   const fullPathString = fullPath(...pathFile);
   if (isJSON(fullPathString) === true) {
     const JSONFileString = fs.readFileSync(fullPathString).toString();
     const JSONObject = JSON.parse(JSONFileString);
     const newObject = { ...JSONObject, ...updateObject };
-    fs.writeFileSync(fullPathString, JSON.stringify(newObject, null, 4));
+    fs.writeFileSync(fullPathString, JSON.stringify(newObject, null, 2));
     console.log("Arquivo atualizado.");
   } else {
     console.log("Tem que informar um arquivo JSON válido.");
@@ -50,20 +50,10 @@ function patchJSON(updateObject, ...pathFile) {
   return;
 }
 
-function fullPath(...pathDir) {
+export function fullPath(...pathDir: string[]) {
   return path.join(__dirname, ...pathDir);
 }
 
-function isJSON(pathJSON) {
+export function isJSON(pathJSON: string) {
   return pathJSON.endsWith(".json");
 }
-
-module.exports = {
-  listDir,
-  readJSON,
-  writeJSON,
-  deleteJSON,
-  patchJSON,
-  fullPath,
-  isJSON,
-};

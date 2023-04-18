@@ -1,1 +1,1 @@
-DELETE http://localhost:8080/pessoas/10
+DELETE http://localhost:8080/notepads/7
