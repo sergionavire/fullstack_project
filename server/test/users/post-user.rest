@@ -1,8 +1,0 @@
-POST http://localhost:8080/pessoas
-Content-Type: application/json
-
-{
-  "name": "Sergio Henrique Criado",
-  "surname": "Carvalho novo",
-  "age": 32
-}

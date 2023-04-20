@@ -5,10 +5,3 @@ export type Notepad = {
   content: string;
   created_at: string;
 };
-
-export type User = {
-  id: number;
-  name: string;
-  surname: string;
-  age: number;
-};

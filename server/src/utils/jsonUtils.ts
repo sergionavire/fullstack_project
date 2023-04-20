@@ -13,11 +13,15 @@ export function readJSON(...pathFile: string[]) {
 
 export function writeJSON(newObject: any, ...pathFile: string[]) {
   const fullPathString = fullPath(...pathFile);
+  console.log(fullPathString);
+
   if (isJSON(fullPathString) === false) {
-    console.log("O arquivo não é JSON.");
+    console.log("aqui");
     return;
   }
   fs.writeFileSync(fullPathString, JSON.stringify(newObject), null, 2);
+  console.log("aqui2");
+
   return;
 }
 
@@ -43,9 +47,6 @@ export function patchJSON(updateObject: any, ...pathFile: string[]) {
     const JSONObject = JSON.parse(JSONFileString);
     const newObject = { ...JSONObject, ...updateObject };
     fs.writeFileSync(fullPathString, JSON.stringify(newObject, null, 2));
-    console.log("Arquivo atualizado.");
-  } else {
-    console.log("Tem que informar um arquivo JSON válido.");
   }
   return;
 }
