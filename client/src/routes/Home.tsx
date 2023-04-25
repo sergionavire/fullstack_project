@@ -2,14 +2,12 @@ import { NotePadList } from "../components/NotePadList";
 import { NotePadListType } from "../components/NotePadList";
 import { apiNotePad } from "../api/apiNotePad";
 import { useEffect, useState } from "react";
+import { getNotepadListType } from "../../../shared/types/notepad.type";
+import { LinkButton } from "../components/LinkButton";
 
 async function getNotePadList() {
-  console.log("aqui 03");
-
   const res = await apiNotePad.get("/notepads");
-  console.log("aqui 04");
   const data = await res.data;
-  console.log("aqui 05");
   return data;
 }
 
@@ -20,12 +18,9 @@ export function Home() {
   const [notepadList, setNotepadList] = useState(valorInicial);
   useEffect(() => {
     setLoading(true);
-    console.log("aqui 02");
 
-    getNotePadList().then((notepads) => {
-      console.log("aqui");
-
-      setNotepadList(notepads);
+    getNotePadList().then((notepads: getNotepadListType) => {
+      setNotepadList(notepads.notepads);
       setLoading(false);
     });
   }, []);
@@ -43,6 +38,9 @@ export function Home() {
           setNotepadList(newNotepads);
         }}
       />
+      <div>
+        <LinkButton key={"id"} to="" className="" children="Teste"></LinkButton>
+      </div>
     </div>
   );
 }

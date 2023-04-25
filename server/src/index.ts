@@ -1,6 +1,6 @@
 import express from "express";
-import { notepadController } from "./controllers/notepadController";
-import { commentController } from "./controllers/commentController";
+import { notepadController } from "./notepad/notepad.controller";
+import { commentController } from "./comment/comment.controller";
 import cors from "cors";
 
 const app = express();
