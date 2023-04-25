@@ -1,3 +1,3 @@
-export function NotePad() {
+export function Notepad() {
   return <div>aqui</div>;
 }

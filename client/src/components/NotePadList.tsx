@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiNotePad } from "../api/apiNotePad";
+import { apiNotepad } from "../api/apiNotepad";
 import { message } from "../utils/message";
 import { Button } from "./Button";
 import { ButtonDelete } from "./ButtonDelete";
 
-export type NotePadListType = {
+export type NotepadListType = {
   id: number;
   title: string;
   subtitle: string;
 };
 type NotepadListProps = {
-  notepad_list: NotePadListType[];
+  notepad_list: NotepadListType[];
   onDelete: (id: number) => void;
 };
 
-export function NotePadList({ notepad_list, onDelete }: NotepadListProps) {
+export function NotepadList({ notepad_list, onDelete }: NotepadListProps) {
   const navigate = useNavigate();
   return (
     <div className="ml-4 divide-y">
@@ -37,7 +37,7 @@ export function NotePadList({ notepad_list, onDelete }: NotepadListProps) {
               <Button
                 className={`bg-red-600 w-28`}
                 onClick={async () => {
-                  const res = await apiNotePad.delete(
+                  const res = await apiNotepad.delete(
                     `/notepads/${notepad.id}`
                   );
                   const deleteNotepadResponse = res.data;

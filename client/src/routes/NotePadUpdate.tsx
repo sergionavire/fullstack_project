@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { apiNotePad } from "../api/apiNotePad";
+import { apiNotepad } from "../api/apiNotepad";
 import { message } from "../utils/message";
 import { NavigationSteps } from "../components/NavigationSteps";
 
-export function NotePadUpdate() {
+export function NotepadUpdate() {
   const params = useParams();
   const navigate = useNavigate();
   const [createdAt, setCreatedAt] = useState("");
@@ -12,7 +12,7 @@ export function NotePadUpdate() {
   const [subtitle, setSubtitle] = useState("");
   const [content, setContent] = useState("");
   useEffect(() => {
-    apiNotePad.get(`/notepads/${params.id}`).then((item) => {
+    apiNotepad.get(`/notepads/${params.id}`).then((item) => {
       setCreatedAt(item.data.created_at);
       setTitle(item.data.title);
       setSubtitle(item.data.subtitle);
@@ -52,7 +52,7 @@ export function NotePadUpdate() {
           };
           console.log(sendObject);
 
-          const res = await apiNotePad.put(
+          const res = await apiNotepad.put(
             `/notepads/${params.id}`,
             sendObject
           );

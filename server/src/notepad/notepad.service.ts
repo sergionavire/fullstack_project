@@ -1,14 +1,9 @@
 import * as json from "../utils/jsonUtils";
 import { notepadType } from "../../../shared/types/notepad.type";
 
-const notepadDataPath = ["..", "..", "data", "notepad.data", "notepads"];
-const notepadLastIdPath = [
-  "..",
-  "..",
-  "data",
-  "notepad.data",
-  "notepad-last-id.json",
-];
+const notepadPathFolder = ["..", "..", "data", "notepad.data"];
+const notepadDataPath = [...notepadPathFolder, "notepads"];
+const notepadLastIdPath = [...notepadPathFolder, "notepad-last-id.json"];
 
 export function findNotepadList(offset: number, limit: number) {
   const dirFilesTotal = json
@@ -24,10 +19,11 @@ export function findNotepadList(offset: number, limit: number) {
       return notepad;
     })
     .sort((a: notepadType, b: notepadType) => a.id - b.id);
-  const notepadsTotal = dirFilesTotal.length;
+  const totalNotepads = dirFilesTotal.length;
+  const totalPages = Math.ceil(totalNotepads / limit);
   const notepadReturn = {
     notepads,
-    notepadsTotal,
+    totalPages,
   };
   return notepadReturn;
 }

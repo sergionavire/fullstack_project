@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiNotePad } from "../api/apiNotePad";
+import { apiNotepad } from "../api/apiNotepad";
 import { NavigationSteps } from "../components/NavigationSteps";
 import { TextareaField } from "../components/TextareaField";
 import { TextField } from "../components/TextField";
 import { message } from "../utils/message";
 
-type NotePadUpdateType = {
+type NotepadUpdateType = {
   id: number;
   title: string;
   subtitle: string;
@@ -14,7 +14,7 @@ type NotePadUpdateType = {
   created_at: string;
 };
 
-export function NotePadNew() {
+export function NotepadNew() {
   const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
@@ -51,7 +51,7 @@ export function NotePadNew() {
             content: content,
           };
 
-          const res = await apiNotePad.post(`/notepads/`, sendObject);
+          const res = await apiNotepad.post(`/notepads/`, sendObject);
           const createNotepadResponse = res.data;
           console.log(createNotepadResponse);
           console.log(createNotepadResponse.success);

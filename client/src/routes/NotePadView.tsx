@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { apiNotePad } from "../api/apiNotePad";
+import { apiNotepad } from "../api/apiNotepad";
 import { Button } from "../components/Button";
 import { ButtonDelete } from "../components/ButtonDelete";
 import { NavigationSteps } from "../components/NavigationSteps";
 
-type NotePadViewType = {
+type NotepadViewType = {
   id: number;
   title: string;
   subtitle: string;
@@ -13,10 +13,10 @@ type NotePadViewType = {
   created_at: string;
 };
 
-export function NotePadView() {
+export function NotepadView() {
   const params = useParams();
   const navigate = useNavigate();
-  const initialNotePad: NotePadViewType = {
+  const initialNotepad: NotepadViewType = {
     id: 0,
     title: "",
     subtitle: "",
@@ -24,11 +24,11 @@ export function NotePadView() {
     created_at: "",
   };
 
-  const [notePad, setNotePad] = useState(initialNotePad);
+  const [notepad, setNotepad] = useState(initialNotepad);
   useEffect(() => {
-    apiNotePad.get(`/notepads/${params.id}`).then((res) => {
+    apiNotepad.get(`/notepads/${params.id}`).then((res) => {
       const notepad = res.data;
-      setNotePad(notepad);
+      setNotepad(notepad);
       console.log(notepad);
     });
   }, []);
@@ -43,27 +43,27 @@ export function NotePadView() {
       />
       <div className="w-full m-auto flex flex-col gap-3 shadow-2xl p-5">
         <div className="text-slate-500">
-          <span className="font-bold">Id:</span> {notePad.id}
+          <span className="font-bold">Id:</span> {notepad.id}
         </div>
         <div className="text-slate-500">
-          <strong>Criado em:</strong> {notePad.created_at}
+          <strong>Criado em:</strong> {notepad.created_at}
         </div>
-        <div className="font-bold text-2xl">{notePad.title}</div>
-        <div className="font-bold text-l">{notePad.subtitle}</div>
+        <div className="font-bold text-2xl">{notepad.title}</div>
+        <div className="font-bold text-l">{notepad.subtitle}</div>
         <div>
           <textarea
-            value={notePad.content}
+            value={notepad.content}
             className="w-full h-36 bg-white resize-none"
             disabled
             readOnly
           ></textarea>
         </div>
         <div className="flex flex-row gap-5">
-          <ButtonDelete id={notePad.id} className="w-1/2" />
+          <ButtonDelete id={notepad.id} className="w-1/2" />
           <Button
             className="w-1/2"
             onClick={() => {
-              navigate(`/notepad-update/${notePad.id}`);
+              navigate(`/notepad-update/${notepad.id}`);
             }}
           >
             Alterar

@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const apiNotePad = axios.create({
+export const apiNotepad = axios.create({
   baseURL: "http://localhost:8080",
 });

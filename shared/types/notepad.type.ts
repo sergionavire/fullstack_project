@@ -8,5 +8,5 @@ export type notepadType = {
 
 export type getNotepadListType = {
   notepads: notepadType[];
-  notepadsTotal: number;
+  totalPages: number;
 };

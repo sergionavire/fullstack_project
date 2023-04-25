@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { apiNotePad } from "../api/apiNotePad";
+import { apiNotepad } from "../api/apiNotepad";
 import { Button } from "./Button";
 import { message } from "../utils/message";
 
@@ -14,7 +14,7 @@ export function ButtonDelete(props: ButtonDeleteProps) {
     <Button
       className={`bg-red-600 ${props.className}`}
       onClick={async () => {
-        const res = await apiNotePad.delete(`/notepads/${props.id}`);
+        const res = await apiNotepad.delete(`/notepads/${props.id}`);
         const deleteNotepadResponse = res.data;
 
         if (deleteNotepadResponse.success) {
