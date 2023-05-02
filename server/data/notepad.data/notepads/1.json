@@ -1,7 +1,14 @@
 {
   "id": 1,
-  "title": "Atualizando 01",
+  "title": "Atualizando 01 mais uma",
   "subtitle": "texto",
   "content": "conteudo",
-  "created_at": "Mon Apr 17 2023 10:42:11 GMT-0300 (Hora padrão de Brasília)"
+  "created_at": "Mon Apr 17 2023 10:42:11 GMT-0300 (Hora padrão de Brasília)",
+  "success": true,
+  "data": {
+    "title": "Atualizando 01 mais uma vez",
+    "subtitle": "texto",
+    "content": "conteudo",
+    "id": 1
+  }
 }

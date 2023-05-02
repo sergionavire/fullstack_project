@@ -1,15 +1,15 @@
 import * as json from "../utils/jsonUtils";
 import { commentType } from "../../../shared/types/comment.type";
 
-const dataPath = ["..", "..", "data", "comments"];
-const lastIdPath = ["..", "..", "data", "comment-last-id.json"];
+const dataPath = ["..", "..", "data", "comment.data", "comments"];
+const lastIdPath = ["..", "..", "data", "comment.data", "comment-last-id.json"];
 
 export function findCommentByNotepadId(id: number) {
   const commentFiles = json.listDir(...dataPath);
   const commentsByNotepadId = commentFiles
     .map((commentFile: string) => {
       const comment = json.readJSON(...dataPath, commentFile);
-      console.log(comment);
+      // console.log(comment);
       return comment;
     })
     .filter((comment: commentType) => comment.notepad_id === id);
@@ -26,7 +26,11 @@ export function createComment(commentObjectReceived: commentType) {
   };
   json.writeJSON(commentNewObjectCreated, ...dataPath, `${commentNewId}.json`);
   updateLastCommentId(commentNewId);
-  return commentNewObjectCreated;
+  const responseSucess = {
+    success: true,
+    data: commentNewObjectCreated,
+  };
+  return responseSucess;
 }
 
 export function getNextCommentId() {

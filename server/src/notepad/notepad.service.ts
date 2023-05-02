@@ -41,7 +41,13 @@ export function createNotepad(notepadData: notepadType) {
   };
   json.writeJSON(newNotepadObject, ...notepadDataPath, `${newNotepadId}.json`);
   updateLastNotepadId(newNotepadId);
-  return newNotepadObject;
+
+  const responseSucess = {
+    success: true,
+    data: newNotepadObject,
+  };
+
+  return responseSucess;
 }
 export function updateNotepadById(id: number, notepadData: notepadType) {
   const updatedNotepadObject = {
@@ -49,7 +55,12 @@ export function updateNotepadById(id: number, notepadData: notepadType) {
     id: Number(id),
   };
   json.patchJSON(updatedNotepadObject, ...notepadDataPath, `${id}.json`);
-  return updatedNotepadObject;
+  const responseSucess = {
+    success: true,
+    data: updatedNotepadObject,
+  };
+
+  return responseSucess;
 }
 
 export function overwriteNotepadById(id: number, notepadData: notepadType) {

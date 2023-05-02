@@ -53,12 +53,9 @@ export function NotepadNew() {
 
           const res = await apiNotepad.post(`/notepads/`, sendObject);
           const createNotepadResponse = res.data;
-          console.log(createNotepadResponse);
-          console.log(createNotepadResponse.success);
           if (createNotepadResponse.success) {
-            //alert("O notepad foi criado com sucesso");
             message("O notepad foi criado com sucesso", true);
-            navigate("/");
+            navigate(`/notepad-view/${createNotepadResponse.data.id}`);
           } else {
             //alert("Houve algum erro na criação.");
             message("Houve algum erro na criação", false);

@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { apiNotepad } from "../api/apiNotepad";
+import { message } from "../utils/message";
 import { Button } from "../components/Button";
 import { ButtonDelete } from "../components/ButtonDelete";
 import { NavigationSteps } from "../components/NavigationSteps";
+import { CommentContent } from "../components/CommentContent";
+import { commentType } from "../../../shared/types/comment.type";
 
 type NotepadViewType = {
   id: number;
@@ -12,6 +15,8 @@ type NotepadViewType = {
   content: string;
   created_at: string;
 };
+
+const initialComments: commentType[] = [];
 
 export function NotepadView() {
   const params = useParams();
@@ -25,20 +30,27 @@ export function NotepadView() {
   };
 
   const [notepad, setNotepad] = useState(initialNotepad);
+  const [comments, setComments] = useState(initialComments);
+  const [newComment, setNewComment] = useState("");
   useEffect(() => {
     apiNotepad.get(`/notepads/${params.id}`).then((res) => {
       const notepad = res.data;
       setNotepad(notepad);
-      console.log(notepad);
+    });
+    apiNotepad.get(`/comments/${params.id}`).then((res) => {
+      const commentsData = res.data;
+      setComments(commentsData);
     });
   }, []);
-
+  // useEffect(() => {
+  //   setComments(commentsData);
+  // }, [comments]);
   return (
     <div className="w-full md:w-3/5 m-auto flex flex-col gap-3">
       <NavigationSteps
         steps={[
           { to: "/", title: "Home" },
-          { to: "/notepad-view/", title: "Notepad" },
+          { to: `/notepad-view/${notepad.id}`, title: "Notepad" },
         ]}
       />
       <div className="w-full m-auto flex flex-col gap-3 shadow-2xl p-5">
@@ -69,6 +81,50 @@ export function NotepadView() {
             Alterar
           </Button>
         </div>
+      </div>
+      <div className="mt-5 bg-slate-200">
+        <h2 className="bg-slate-400 text-center text-lg font-bold rounded-md">
+          Comentários:
+        </h2>
+        <div>
+          <form
+            onSubmit={async (event) => {
+              event.preventDefault();
+              // event.preventDefault();
+              const newCommentToSend = {
+                content: newComment,
+                notepad_id: notepad.id,
+              };
+              const res = await apiNotepad.post("/comments/", newCommentToSend);
+              const createdCommentResponse = res.data;
+              if (createdCommentResponse.success) {
+                message("O comentário foi criado com sucesso", true);
+              } else {
+                message("Ocorreu algum erro na criação do comentário", false);
+              }
+              setComments([...comments, createdCommentResponse.data]);
+              setNewComment("");
+            }}
+          >
+            <textarea
+              className="w-full h-36 resize-none font-normal text-1 bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              onChange={(event) => {
+                event.preventDefault();
+                setNewComment(event.target.value);
+                console.log(event.target.value);
+              }}
+              placeholder="Digite o comentário"
+              value={newComment}
+              key="1"
+            ></textarea>
+            <input
+              type="submit"
+              className="w-full mt-2 bg-sky-300"
+              value="Inserir Comentário"
+            />
+          </form>
+        </div>
+        <CommentContent comment_list={comments} />
       </div>
     </div>
   );

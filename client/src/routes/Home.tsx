@@ -5,9 +5,6 @@ import { useEffect, useState } from "react";
 import { getNotepadListType } from "../../../shared/types/notepad.type";
 import { useParams } from "react-router-dom";
 
-// const params = useParams();
-// const page = params.page === undefined ? 1 : parseInt(params.page);
-
 async function getNotepadList(page: number) {
   const res = await apiNotepad.get(`/notepads?page=${page}`);
   const data = await res.data;
@@ -17,7 +14,6 @@ async function getNotepadList(page: number) {
 export function Home() {
   const params = useParams();
   const page = params.page === undefined ? 1 : parseInt(params.page);
-  console.log(page);
 
   const valorInicial: NotepadListType[] = [];
   const [loading, setLoading] = useState(true);
